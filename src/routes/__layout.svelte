@@ -1,5 +1,6 @@
 <script>
 	import '../app.css';
+	import { page } from '$app/stores';
 	let mobileMenuOpen = false;
 </script>
 
@@ -60,13 +61,13 @@
 						<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 						<a
 							href="/"
-							class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+							class="px-3 py-2 rounded-md text-sm font-medium {$page.url.pathname === '/' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}"
 							aria-current="page">Home</a
 						>
 
 						<a
 							href="/blog"
-							class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+							class="px-3 py-2 rounded-md text-sm font-medium {$page.url.pathname.includes('blog') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}"
 							>Blog</a
 						>
 					</div>
