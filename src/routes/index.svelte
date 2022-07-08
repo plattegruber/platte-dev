@@ -1,7 +1,3 @@
-<script>
-    import profileImage from '$lib/assets/platte.jpg';
-</script>
-
 <div>
     <div class="h-32 w-full lg:h-48 bg-slate-800">
     </div>
@@ -11,7 +7,7 @@
                 <h1>Hi! I'm Platte.</h1>
             </div>
             <div class="flex-1">
-                <img alt="My profile" src={profileImage} />
+                <img alt="My profile" src="https://ucarecdn.com/8b32ea95-de42-4285-a17c-ac0d88f8a695/-/preview/-/quality/smart/" />
             </div>
         </div>
     </div>
