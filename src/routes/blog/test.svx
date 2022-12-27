@@ -1,0 +1,10 @@
+---
+title: test
+date: "2022-12-26"
+---
+
+# Good stuff in your markdown
+
+Markdown is pretty good but sometimes you just need more.
+
+Sometimes you need a boinger like this:
