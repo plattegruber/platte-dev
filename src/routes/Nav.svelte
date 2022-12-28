@@ -1,5 +1,7 @@
 <script>
-    let isMenuOpen = false;
+  import { page } from '$app/stores';
+
+  let isMenuOpen = false;
 
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
@@ -42,12 +44,23 @@
         </div>
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="/" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Home</a>
+            {#if $page.url.pathname === '/'}
+              <a href="/" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Home</a>
+            {:else}
+              <a href="/" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+            {/if}
 
-            <a href="/blog" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blog</a>
+            {#if $page.url.pathname.includes('blog')}
+              <a href="/blog" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Blog</a>
+            {:else}
+              <a href="/blog" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blog</a>
+            {/if}
 
-            <a href="/newsletter" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Newsletter</a>
+            {#if $page.url.pathname.includes('newsletter')}
+              <a href="/newsletter" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Newsletter</a>
+            {:else}
+              <a href="/newsletter" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Newsletter</a>
+            {/if}
           </div>
         </div>
       </div>
