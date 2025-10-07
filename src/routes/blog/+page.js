@@ -1,14 +1,39 @@
-export async function load() {
-    /** @type {import('vite/types/importGlob')} */
-    const allPostFiles = import.meta.glob('./*.{svx,md}', { eager: true});
+/**
+ * @typedef {{
+ * 	title?: string;
+ * 	date?: string;
+ * 	coverImageUrl?: string;
+ * 	[key: string]: unknown;
+ * }} PostMetadata
+ * @typedef {{ path: string; published: string | null } & PostMetadata} PostSummary
+ */
 
-    const allPosts = Object.entries(allPostFiles).map(([path, post]) => {
-        const postPath = path.slice(2, -4);
-        return { ...post.metadata, path: postPath, published: post.metadata.date };
-    });
-    const posts = allPosts.sort((a, b) => b.published - a.published);
-    if (!posts || !posts.length) {
-        return { posts: [] };
-    }
-    return { posts };
+/** @type {import('./$types').PageLoad} */
+export async function load() {
+	const allPostFiles = import.meta.glob('./*.{svx,md}', { eager: true });
+
+	const allPosts = /** @type {PostSummary[]} */ (
+		Object.entries(allPostFiles).map(([path, post]) => {
+			const postModule = /** @type {{ metadata: PostMetadata }} */ (post);
+			const postPath = path.slice(2, -4);
+
+			return {
+				...postModule.metadata,
+				path: postPath,
+				published: postModule.metadata?.date ?? null
+			};
+		})
+	);
+
+	/**
+	 * @param {PostSummary} post
+	 * @returns {post is PostSummary & { published: string }}
+	 */
+	const hasPublishedDate = (post) => typeof post.published === 'string';
+
+	const posts = allPosts
+		.filter(hasPublishedDate)
+		.sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
+
+	return { posts };
 }

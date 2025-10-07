@@ -1,5 +1,6 @@
 <script>
-  export let data;
+	/** @type {import('./$types').PageData} */
+	export let data;
 </script>
 
 <svelte:head>
@@ -9,8 +10,8 @@
 </svelte:head>
 
 <article>
-	<h1>{ data.title }</h1>
-    <p>Published: {data.date}</p>
-    <svelte:component this={data.content} />
-	<a href="/blog">Back to blog index</a>
+	<h1>{data.title}</h1>
+	<p>Published: {data.date}</p>
+	<svelte:component this={data.content} />
+	<a href="/blog" data-sveltekit-preload-data>Back to blog index</a>
 </article>
